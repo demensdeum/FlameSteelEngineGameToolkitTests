@@ -3,6 +3,7 @@
 #include <FlameSteelEngineGameToolkit/Data/ObjectsMap/ObjectsMap.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+#include <FlameSteelCore/FSCObjects.h>
 
 using namespace std;
 using namespace FlameSteelEngine::GameToolkit;
@@ -24,7 +25,8 @@ bool ObjectsMapTest::perform() {
 
 	auto objectsMap = make_shared<ObjectsMap>();
 	objectsMap->handleObject(object);
-	auto sameObject = objectsMap->objectAtXY(1, 1);
+	auto objects = objectsMap->objectsAtXY(1, 1);
+	auto sameObject = objects->objectAtIndex(0);
 
 	if (object.get() != sameObject.get()) {
 
@@ -41,8 +43,10 @@ bool ObjectsMapTest::perform() {
 
 	objectsMap->handleObject(object);
 
-	auto objectAtOldPosition = objectsMap->objectAtXY(1, 1);
-	sameObject = objectsMap->objectAtXY(2, 2);
+	auto objectsAtOldPosition = objectsMap->objectsAtXY(1, 1);
+	auto objectAtOldPosition = objectsAtOldPosition->objectAtIndex(0);
+	auto sameObjects = objectsMap->objectsAtXY(2, 2);
+	sameObject = sameObjects->objectAtIndex(0);
 
 	if (objectAtOldPosition.get() != nullptr) {
 
@@ -61,9 +65,9 @@ bool ObjectsMapTest::perform() {
 	cout << "Test 2: Success" << endl;
 
 	objectsMap->removeObject(object);
-	sameObject = objectsMap->objectAtXY(2, 2);
+	sameObjects = objectsMap->objectsAtXY(2, 2);
 
-	if (sameObject.get() != nullptr) {
+	if (sameObjects.get() != nullptr) {
 
 		cout << "Test 3 - object deleting: Failed" << endl;
 
@@ -75,9 +79,9 @@ bool ObjectsMapTest::perform() {
 	objectsMap->handleObject(object);
 	objectsMap->removeAllObjects();
 
-	sameObject = objectsMap->objectAtXY(2, 2);
+	sameObjects = objectsMap->objectsAtXY(2, 2);
 
-	if (sameObject.get() != nullptr) {
+	if (sameObjects.get() != nullptr) {
 
 		cout << "Test 4 - remove all: Failed" << endl;
 
