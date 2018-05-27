@@ -22,12 +22,12 @@ bool ObjectsMapTest::perform() {
                                         0                 
                                       );
 
-	auto objectsMap = make_shared<ObjectsMap>(64, 64);
+	auto objectsMap = make_shared<ObjectsMap>();
 	objectsMap->handleObject(object);
 	auto sameObject = objectsMap->objectAtXY(1, 1);
 
-	if (object.get() != sameObject.get())
-	{
+	if (object.get() != sameObject.get()) {
+
 		cout << "Test 1 - basic scene object handling: Failed" << endl;
 
 		return false;
@@ -45,12 +45,14 @@ bool ObjectsMapTest::perform() {
 	sameObject = objectsMap->objectAtXY(2, 2);
 
 	if (objectAtOldPosition.get() != nullptr) {
+
 		cout << "Test 2 - object moving handling: case 1 failed" << endl;
 
 		return false;
 	}
 
 	if (object.get() != sameObject.get()) {
+
 		cout << "Test 2 - object moving handling: case 2 failed" << endl;
 
 		return false;
@@ -62,6 +64,7 @@ bool ObjectsMapTest::perform() {
 	sameObject = objectsMap->objectAtXY(2, 2);
 
 	if (sameObject.get() != nullptr) {
+
 		cout << "Test 3 - object deleting: Failed" << endl;
 
 		return false;
@@ -75,6 +78,7 @@ bool ObjectsMapTest::perform() {
 	sameObject = objectsMap->objectAtXY(2, 2);
 
 	if (sameObject.get() != nullptr) {
+
 		cout << "Test 4 - remove all: Failed" << endl;
 
 		return false;
