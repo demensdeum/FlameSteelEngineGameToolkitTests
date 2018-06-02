@@ -44,22 +44,33 @@ bool ObjectsMapTest::perform() {
 	objectsMap->handleObject(object);
 
 	auto objectsAtOldPosition = objectsMap->objectsAtXY(1, 1);
-	auto objectAtOldPosition = objectsAtOldPosition->objectAtIndex(0);
-	auto sameObjects = objectsMap->objectsAtXY(2, 2);
-	sameObject = sameObjects->objectAtIndex(0);
 
-	if (objectAtOldPosition.get() != nullptr) {
+	if (objectsAtOldPosition.get() != nullptr) {
 
 		cout << "Test 2 - object moving handling: case 1 failed" << endl;
 
 		return false;
+
 	}
 
-	if (object.get() != sameObject.get()) {
+	auto sameObjects = objectsMap->objectsAtXY(2, 2);
+
+	if (sameObjects.get() == nullptr) {
 
 		cout << "Test 2 - object moving handling: case 2 failed" << endl;
 
 		return false;
+
+	}
+
+	sameObject = sameObjects->objectAtIndex(0);
+
+	if (object.get() != sameObject.get()) {
+
+		cout << "Test 2 - object moving handling: case 3 failed" << endl;
+
+		return false;
+
 	}
 
 	cout << "Test 2: Success" << endl;
@@ -89,6 +100,7 @@ bool ObjectsMapTest::perform() {
 	}
 
 	cout << "Test 4: Success" << endl;
+
 
 	return true;
 }
